@@ -1,4 +1,9 @@
+using MedicalInformationSystem.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
+builder.AddInfrastructure();
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
@@ -13,5 +18,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+app.MapDefaultEndpoints();
 
 app.Run();
