@@ -15,6 +15,7 @@ public static class DependencyInjection
     public static IHostApplicationBuilder AddInfrastructure(this IHostApplicationBuilder builder)
     {
         builder.AddNpgsqlDbContext<AppDbContext>("medicaldb");
+        builder.Services.AddScoped<DatabaseInitializer>();
         builder.Services.AddScoped<IDiseaseQueryService, DiseaseQueryService>();
         builder.Services.AddScoped<IDoctorQueryService, DoctorQueryService>();
         builder.Services.AddScoped<IPatientQueryService, PatientQueryService>();

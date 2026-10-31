@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using MedicalInformationSystem.Api.ExceptionHandling;
 using MedicalInformationSystem.Infrastructure;
+using MedicalInformationSystem.Infrastructure.Persistence;
 using Microsoft.AspNetCore.HttpLogging;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,14 @@ builder.Services.AddHttpLogging(options =>
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+await using (var scope = app.Services.CreateAsyncScope())
+{
+    var databaseInitializer = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
+    await databaseInitializer.InitializeAsync(
+        seedDemoData: app.Environment.IsDevelopment(),
+        cancellationToken: app.Lifetime.ApplicationStopping);
+}
 
 if (app.Environment.IsDevelopment())
 {
