@@ -1,0 +1,33 @@
+@apiUrl = http://localhost:14100
+
+### API health
+GET {{apiUrl}}/health
+Accept: application/json
+
+### All patients
+GET {{apiUrl}}/api/patients
+Accept: application/json
+
+### Patient details
+GET {{apiUrl}}/api/patients/65da26b0-3a12-4f8e-8509-9c7d94591ab9
+Accept: application/json
+
+### Missing patient
+GET {{apiUrl}}/api/patients/00000000-0000-0000-0000-000000000000
+Accept: application/problem+json
+
+### All doctors
+GET {{apiUrl}}/api/doctors
+Accept: application/json
+
+### Doctors filtered by specialty
+GET {{apiUrl}}/api/doctors?specialty=Кардиолог
+Accept: application/json
+
+### Doctor specialties
+GET {{apiUrl}}/api/doctors/specialties
+Accept: application/json
+
+### All diseases
+GET {{apiUrl}}/api/diseases
+Accept: application/json
