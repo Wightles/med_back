@@ -14,14 +14,16 @@
 
 ## Запуск
 
-Для запуска нужны .NET 10 SDK и Docker Desktop.
+Для запуска нужны .NET 10 SDK и Docker Desktop. Сначала нужно запустить Docker Desktop, затем из корня проекта выполнить:
 
 ```bash
 dotnet restore
 dotnet run --project src/MedicalInformationSystem.AppHost
 ```
 
-Aspire поднимет API и PostgreSQL. При первом запуске применятся миграции и добавятся тестовые данные. Адрес API можно посмотреть в Aspire Dashboard.
+Aspire поднимет API и PostgreSQL. При первом запуске применятся миграции и добавятся тестовые данные. Ссылка на Aspire Dashboard появится в терминале. В Dashboard нужно открыть ресурс `api` и перейти по его адресу.
+
+Остановить приложение можно сочетанием `Ctrl+C`. Данные PostgreSQL сохранятся в Docker volume.
 
 ## Маршруты
 
@@ -56,5 +58,15 @@ dotnet ef migrations add MigrationName \
 ```bash
 dotnet build MedicalInformationSystem.sln
 ```
+
+## Тесты
+
+Перед запуском тестов Docker Desktop должен быть включён.
+
+```bash
+dotnet test MedicalInformationSystem.sln
+```
+
+Тесты запускают отдельный PostgreSQL без постоянного volume, применяют миграцию и проверяют API реальными HTTP-запросами.
 
 Ошибки возвращаются в формате `ProblemDetails`. Основные действия и необработанные исключения записываются в логи.
